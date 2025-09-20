@@ -1,0 +1,54 @@
+#pragma once
+#ifndef MAIN_H
+#define MAIN_H
+#include <iostream>
+#include <windows.h>
+
+extern HANDLE g_hMutex;
+extern void* g_loggingService;
+extern bool g_isConnected; // temp
+
+enum DPEC_Result : int
+{
+	DPEC_RESULT_SUCCESS = 0,
+	DPEC_RESULT_FAILED = 1,
+	DPEC_RESULT_ABORTED = 2,
+	DPEC_RESULT_UNKNOWN = 3,
+	DPEC_RESULT_TIMEOUT = 4,
+	DPEC_RESULT_NO_CONNECT = 5,
+	DPEC_RESULT_CONNECTED = 6,
+	DPEC_RESULT_NO_RESOURCE = 7,
+	DPEC_RESULT_CANT_COMPLETE = 8,
+	DPEC_RESULT_SRC_EMPTY = 9,
+	DPEC_RESULT_DST_OCCUPIED = 10,
+	DPEC_RESULT_SLOT_EMPTY = 11,
+	DPEC_RESULT_SLOT_FULL = 12,
+	DPEC_RESULT_BAD_VALUE = 13,
+	DPEC_RESULT_INVALID_SLOT = 14,
+	DPEC_RESULT_INVALID_OP = 15,
+	DPEC_RESULT_WRONG_MODE = 16,
+	DPEC_RESULT_WRONG_STATE = 17,
+	DPEC_RESULT_WRONG_MODEL = 18,
+	DPEC_RESULT_CASE_REJECTED = 19,
+	DPEC_RESULT_CASE_JAMMED = 20,
+	DPEC_RESULT_CASE_RESEATED = 21,
+	DPEC_RESULT_CASE_YANKED_OUT = 22,
+	DPEC_RESULT_CASE_SHOVED_IN = 23,
+};
+
+
+enum DPEC_Mode : int
+{
+	DPEC_MODE_UNKNOWN = 0,
+	DPEC_MODE_TRANSITION = 1,
+	DPEC_MODE_OPERATIONAL = 2,
+	DPEC_MODE_DIAGNOSTIC = 3
+};
+
+typedef struct {
+	BYTE major;      // buffer[0]
+	BYTE minor;      // buffer[1]  
+	WORD build;      // buffer[2-3] as little-endian word
+} DPEC_VERSION
+
+#endif

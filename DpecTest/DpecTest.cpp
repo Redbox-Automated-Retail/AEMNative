@@ -1,7 +1,13 @@
 #include <windows.h>
 #include <iostream>
 
-typedef void(__cdecl* DPEC_GetLibraryVersion_t)(char*, char*, char*, char*);
+typedef struct {
+    BYTE major;      // buffer[0]
+    BYTE minor;      // buffer[1]  
+    WORD build;      // buffer[2-3] as little-endian word
+} DPEC_VERSION;
+
+typedef void(__cdecl* DPEC_GetLibraryVersion_t)(DPEC_VERSION*, char*);
 
 
 int main() {
@@ -17,14 +23,13 @@ int main() {
         return 1;
     }
 
-    char buffer[84];
+    DPEC_VERSION version;
+    char versionString[80];
 
-    DPEC_GetLibraryVersion(&buffer[0],
-        &buffer[1],
-        &buffer[2],
-        &buffer[4]);
+    DPEC_GetLibraryVersion(&version, versionString);
 
-    std::cout << buffer << "\n";
+    printf("Version: %d.%d Build %04d\n", version.major, version.minor, version.build);
+    printf("Version String: %s\n", versionString);
 
     FreeLibrary(dpecHandle);
     return 0;
