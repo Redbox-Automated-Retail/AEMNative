@@ -247,6 +247,7 @@ extern "C" int DPEC_GetOpState(int id, int* pState)
 {
 	int result = DPEC_RESULT_SUCCESS;
 	int state = DPEC_STATE_UNKNOWN;
+}
 
 extern "C" int DPEC_StartLoggingService()
 {
